@@ -1,0 +1,70 @@
+@startuml
+entity "Book" {
+    ISBN
+    publicationYear
+    author
+    numberOfPages
+}
+
+entity "BookCopy" {
+    copyID
+    shelfLocation
+}
+
+entity "Reader" {
+    firstName
+    lastName 
+    birthday
+}
+
+entity "Publisher" {
+    name
+    address
+}
+
+entity "Borrowing" {
+    returnDate
+}
+
+entity "Category" 
+{
+    name
+}
+
+Publisher ||--o{ "Book": publishes
+Book ||--o{ "BookCopy"
+Reader ||--o{ Borrowing
+Borrowing }o--|| BookCopy
+Category |o--o{ Category: has subcategory
+Book }o--|| Category
+
+entity "Apartment" {}
+entity "House" {}
+entity "Street" {}
+entity "Town" {}
+entity "State" {}
+
+Apartment }|--|| House: has
+House }|--|| Street: has
+Street }|--|| Town: has
+Town }|--|| State: has
+
+entity "Match" {}
+
+entity "Referee" {}
+
+entity "Team" {}
+
+Team ||--o{ Match: plays
+Team ||--o{ Match: plays
+Referee ||--o{ Match: judges
+
+entity "Man" {}
+entity "Woman" {}
+
+Man }o--|| Man: father to sons
+Woman ||--o{ Man: mother to sons
+Man ||--o{ Woman: father to daughters
+Woman }o--|| Woman: mother to daughters
+
+@enduml
