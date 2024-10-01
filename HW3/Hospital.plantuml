@@ -1,0 +1,50 @@
+@startuml Hospital
+
+class "StationPersonnel" {
+    +PersNr : Int <<PK>>
+    #Name : String
+}
+
+class "Station" {
+    +StatNr : Int <<PK>>
+    +Name : String
+}
+
+class "Caregiver" {
+    +PersNr : Int <<FK, PK>>
+    +Qualification : String
+}
+
+class "Doctor" {
+    +PersNr : Int <<PK, FK>>
+    +Rank : Int
+    +Area : String
+}
+
+class "Patient" {
+    +PatientNr : Int <<PK>>
+    +Name : String
+    +Disease : String
+}
+
+class "Room" {
+    +RoomNr : Int <<PK>>
+    #Beds : Int
+}
+
+class "Admission" {
+    +PatientNr : Integer <<PK, FK>>
+    +RoomNr : Integer <<PK, FK>>
+    +from : Data
+    +to: Data
+}
+
+Doctor ||--o{ Patient : Treats
+Patient ||--|| Admission
+Admission }o--|| Room
+Station ||--o{ Room : "Has"
+StationPersonnel <|-- Caregiver : "is a"
+StationPersonnel <|-- Doctor : "is a"
+StationPersonnel }o--|| Station : "Works for"
+
+@enduml

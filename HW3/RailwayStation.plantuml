@@ -1,0 +1,53 @@
+@startuml RailwayStation
+
+class "Train" {
+    +TrainNr : Int <<PK>>
+    Length : Int
+}
+
+class "Station" {
+    +Name : String <<PK>>
+    #Tracks : Int
+}
+
+class "City" {
+    +Region : String <<PK>>
+    +Name : String <<PK>>
+
+}
+
+class "TrainStop" {
+    +TrainNr : Int <<FK, PK>>
+    +StationName : String <<FK, PK>>
+    +Departure : Date
+    +Arrival : Date
+}
+
+class "RouteStart" {
+    +TrainNr : Int <<FK, PK>>
+    +StationName : String <<FK, PK>>
+}
+
+class "RouteEnd" {
+    +TrainNr : Int <<FK, PK>>
+    +StationName : String <<FK, PK>>
+}
+
+class "StationLocation" {
+    +StationName : String <<FK, PK>>
+    +CityRegion : String <<FK, PK>>
+    +CityName : String <<FK, PK>>
+}
+
+Train ||--|| RouteStart
+Train ||--|| RouteEnd
+RouteStart }o--|| Station
+RouteEnd }o--|| Station
+
+Station ||--o{ TrainStop
+Station ||--o{ TrainStop: #Tracks
+Train ||--o{ TrainStop
+
+City ||--o{ StationLocation
+StationLocation ||--|| Station
+@enduml

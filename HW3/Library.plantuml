@@ -1,0 +1,46 @@
+@startuml Library
+
+class "Book" {
+    +ISBN : Int <<PK>>
+    publicationYear : Date
+    +author : String
+    numberOfPages : Int
+}
+
+class "BookCopy" {
+    +copyID : Int <<PK>>
+    +shelfLocation : Int
+    +ISBN : Int <<PK, FK>>
+}
+
+class "Reader" {
+    +reader_id : Int <<PK>>
+    firstName : String
+    lastName : String
+    birthday : Date
+}
+
+class "Publisher" {
+    +name : String <<PK>>
+    +address : String
+}
+
+class "Borrowing" {
+    +reader_id : Int <<PK, FK>>
+    +copy_id : Int <<PK, FK>>
+    +returnDate : Date
+}
+
+class "Category" {
+    +name : String <<PK>>
+    +parent_id : Int <<FK>>
+}
+
+Publisher ||--o{ Book : publishes
+Book ||--o{ BookCopy
+Reader ||--o{ Borrowing
+Borrowing }o--|| BookCopy
+Category |o--o{ Category : has subcategory
+Book }o--|| Category
+
+@enduml
