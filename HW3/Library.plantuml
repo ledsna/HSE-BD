@@ -14,7 +14,7 @@ class "BookCopy" {
 }
 
 class "Reader" {
-    +reader_id : Int <<PK>>
+    +readerID : Int <<PK>>
     firstName : String
     lastName : String
     birthday : Date
@@ -26,17 +26,17 @@ class "Publisher" {
 }
 
 class "Borrowing" {
-    +reader_id : Int <<PK, FK>>
-    +copy_id : Int <<PK, FK>>
+    +readerID : Int <<PK, FK>>
+    +copyID : Int <<PK, FK>>
     +returnDate : Date
 }
 
 class "Category" {
     +name : String <<PK>>
-    +parent_id : Int <<FK>>
+    +parentID : Int <<FK>>
 }
 
-Publisher ||--o{ Book : publishes
+Publisher }|--o{ Book : publishes
 Book ||--o{ BookCopy
 Reader ||--o{ Borrowing
 Borrowing }o--|| BookCopy
